@@ -1,4 +1,5 @@
-import CheckBoxPage from "../../pageObjects/CheckBoxPage";
+import CheckBoxPage from "../../pageObjects/checkBoxPage";
+import RadioBtnPage from "../../pageObjects/radioBtnPage";
 import TextBoxPage from "../../pageObjects/textBoxPage";
 
 context("Elements Page", () => {
@@ -50,7 +51,7 @@ context("Elements Page", () => {
     // Click expand button
     // Click Office
     // Validate the checked checkboxes
-    it.only("Checking office checkbox", () => {
+    it("Checking office checkbox", () => {
       CheckBoxPage.officeCheckbox.click({force:true})
       CheckBoxPage.officeCheckbox.should("be.checked")
       CheckBoxPage.publicCheckbox.should("be.checked")
@@ -62,6 +63,9 @@ context("Elements Page", () => {
   });
 
   context("Radio button scenarios", () => {
+    beforeEach(()=>{
+      RadioBtnPage.visit()
+    })
     // Create RadioButtons page object
     // Scenario 1:
     // Click yesButton
@@ -69,6 +73,15 @@ context("Elements Page", () => {
     // click impressiveButton
     // validate the message
     // noButton - validate that the button exists but is disabled
+    it.only("Clciking radio buttons", () => {
+    RadioBtnPage.yesRadio.click({force:true})
+    RadioBtnPage.message.should("have.text", "Yes")
+    RadioBtnPage.impressiveRadio.click({force:true})
+    RadioBtnPage.message.should("have.text", "Impressive")
+    RadioBtnPage.noRadio.should("exist")
+    RadioBtnPage.noRadio.should("be.disabled")
+    })
+
   });
 
   context("Web tables scenarios", () => {
