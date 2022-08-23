@@ -138,7 +138,7 @@ context("Elements Page", () => {
     // Validate the right click message
     // Do dynamic click
     // Validate dynamic click message
-    it.only("Clicks button", () => {
+    it("Clicks button", () => {
     ButtonsPage.doubleClickBtn.dblclick()
     ButtonsPage.doubleClickMsg.should("exist")
     ButtonsPage.rightClickBtn.rightclick()
