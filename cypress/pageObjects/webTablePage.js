@@ -7,7 +7,6 @@ class WebTablePage extends BasePage{
       static get addNewRecordButton(){
         return cy.get("[id='addNewRecordButton']")
     }
-    //id="firstName"
     static get inputFirstName(){
         return cy.get("[id='firstName']")
     }
@@ -32,11 +31,6 @@ class WebTablePage extends BasePage{
     static getColumns(column){
         let selector = "div[role='row'] > div[class='rt-td']:nth-child"
         let finalSelector = selector+'('+column+')'
-        return cy.get(finalSelector)
-    }
-    static deleteRecordBtn(number){
-        let selector = "span[id='delete-record-"
-        let finalSelector = selector+number+"'"+']'
         return cy.get(finalSelector)
     }
     static get deleteRecordButtons(){
