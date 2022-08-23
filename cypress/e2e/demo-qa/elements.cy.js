@@ -1,6 +1,7 @@
 import CheckBoxPage from "../../pageObjects/checkBoxPage";
 import RadioBtnPage from "../../pageObjects/radioBtnPage";
 import TextBoxPage from "../../pageObjects/textBoxPage";
+import WebTablePage from "../../pageObjects/webTablePage";
 
 context("Elements Page", () => {
   context("Text box scenarios", () => {
@@ -73,7 +74,7 @@ context("Elements Page", () => {
     // click impressiveButton
     // validate the message
     // noButton - validate that the button exists but is disabled
-    it.only("Clciking radio buttons", () => {
+    it("Clicking radio buttons", () => {
     RadioBtnPage.yesRadio.click({force:true})
     RadioBtnPage.message.should("have.text", "Yes")
     RadioBtnPage.impressiveRadio.click({force:true})
@@ -85,6 +86,9 @@ context("Elements Page", () => {
   });
 
   context("Web tables scenarios", () => {
+    beforeEach(()=>{
+      WebTablePage.visit()
+    })
     // Create WebTables page object
     // Create scenario 1:
     // Click add record button
@@ -92,10 +96,32 @@ context("Elements Page", () => {
     // click submit button
     // search for the user based on previously added information
     // validate tha the user is visible
+    it("Adding record to table", () => {
+      WebTablePage.addNewRecordButton.click()
+      WebTablePage.inputFirstName.type("John")
+      WebTablePage.inputLastName.type("Doe")
+      WebTablePage.inputAge.type("40")
+      WebTablePage.inputEmail.type("john@mail.com")
+      WebTablePage.inputSalary.type("2000")
+      WebTablePage.inputDepartment.type("Logistics")
+      WebTablePage.submitButton.click()
+      const information = ["John", "Doe","40", "john@mail.com","2000", "Logistics"]
+      for(let i =1;i<6;i++){
+        WebTablePage.getColumns(i).eq(3).should("have.text", information[i-1])
+      }
+    
+      })
 
     // Create Scenario 2:
     // Delete all table rows
     // Validate that we see text - No rows found
+    it.only("Delete records", () => {
+        WebTablePage.deleteRecordButtons.should("have.length",3)
+        for(let i=0;i<3;i++){
+          WebTablePage.deleteRecordButtons.eq(0).click()
+        }
+        WebTablePage.noDataMessage.should("have.text", "No rows found")
+    })
   });
 
   context("Buttons scenarios", () => {
