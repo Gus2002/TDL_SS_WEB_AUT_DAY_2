@@ -1,3 +1,4 @@
+import CheckBoxPage from "../../pageObjects/CheckBoxPage";
 import TextBoxPage from "../../pageObjects/textBoxPage";
 
 context("Elements Page", () => {
@@ -9,7 +10,7 @@ context("Elements Page", () => {
     // Create texbox scenario
     // fill in textboxes with necessary information
     // validate the paragraphs
-    it.only("Filling in Text Boxes", () => {
+    it("Filling in Text Boxes", () => {
       TextBoxPage.inputFullName.type("John Doe")
       TextBoxPage.inputEmail.type("john@mail.com")
       TextBoxPage.inputAddress.type("Right Street 17")
@@ -23,16 +24,41 @@ context("Elements Page", () => {
   });
 
   context("Check box scenarios", () => {
+    beforeEach(()=>{
+      CheckBoxPage.visit()
+      CheckBoxPage.expandBtn.click()
+    })
     // Create CheckBoxPage page object
     // Create checkbox scenario 1:
     // Click the "+"/expand button
     // Click Notes, React, Angular, General, Excel File.doc
     // Validate the clicked checkboxes
+    it("Checking check boxes 1", () => {
+      CheckBoxPage.notesCheckbox.click({force: true})
+      CheckBoxPage.reactCheckbox.click({force:true})
+      CheckBoxPage.angularCheckbox.click({force:true})
+      CheckBoxPage.generalCheckbox.click({force:true})
+      CheckBoxPage.excelCheckbox.click({force:true})
+      CheckBoxPage.notesCheckbox.should("be.checked")
+      CheckBoxPage.reactCheckbox.should("be.checked")
+      CheckBoxPage.angularCheckbox.should("be.checked")
+      CheckBoxPage.generalCheckbox.should("be.checked")
+      CheckBoxPage.excelCheckbox.should("be.checked")
+    })
 
     // Create checkbox scenario 2:
     // Click expand button
     // Click Office
     // Validate the checked checkboxes
+    it.only("Checking office checkbox", () => {
+      CheckBoxPage.officeCheckbox.click({force:true})
+      CheckBoxPage.officeCheckbox.should("be.checked")
+      CheckBoxPage.publicCheckbox.should("be.checked")
+      CheckBoxPage.privateCheckbox.should("be.checked")
+      CheckBoxPage.classifiedCheckbox.should("be.checked")
+      CheckBoxPage.generalCheckbox.should("be.checked")
+    })
+    
   });
 
   context("Radio button scenarios", () => {
